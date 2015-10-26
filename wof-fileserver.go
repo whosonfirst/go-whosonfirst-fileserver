@@ -24,8 +24,10 @@ func main() {
 
 	log.Printf("Static file server running at %s:%d. CTRL + C to shutdown\n", "http://localhost", *port)
 
-	str_port := ":" + strconv.Itoa(*port)
+	// TO DO: wrap up CORS stuff...
 	handler := http.FileServer(http.Dir(docroot))
+
+	str_port := ":" + strconv.Itoa(*port)
 
 	err = http.ListenAndServe(str_port, handler)
 
