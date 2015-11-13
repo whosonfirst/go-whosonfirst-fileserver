@@ -58,4 +58,5 @@ No.
 
 ## See also
 
-https://github.com/cortesi/devd
+* https://github.com/cortesi/devd
+* https://pauladamsmith.com/blog/2014/06/quickserver.html
