@@ -7,14 +7,13 @@ There are many static file servers written in Go (and friends). This one is ours
 ### Building
 
 ```
-$> export GOPATH=`pwd`
-$> go build wof-fileserver.go
+$> make build
 ```
 
 ### Running
 
 ```
-$> wof-fileserver -path /usr/local/mapzen/whosonfirst-data/data -port 9999
+$> bin/wof-fileserver -path /usr/local/mapzen/whosonfirst-data/data -port 9999
 ```
 
 ### CORS
