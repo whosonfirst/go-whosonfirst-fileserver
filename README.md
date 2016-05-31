@@ -20,6 +20,10 @@ $> bin/wof-fileserver -path /usr/local/mapzen/whosonfirst-data/data -port 9999
 
 Yes. Pass the `-cors` flag when starting up the server.
 
+### TLS
+
+Yes. Pass the `-tls` flag when startup up the server. If you have your own TLS key and certificate then you would specify them using the `-tls-key` and `-tls-cert` arguments respectively. If not then the server will generate a self-signed TLS key and certificate pair (which will make your browser complain so use this feature with the appropriate amount of caution and diligence).
+
 ## Example
 
 On the server side:
