@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/whosonfirst/go-httpony/tls"	
+	"github.com/whosonfirst/go-httpony/tls"
 	"log"
 	"net/http"
 	"os"
@@ -32,15 +32,23 @@ func main() {
 
 	wof_handler := func(next http.Handler) http.Handler {
 
-		fn := func(w http.ResponseWriter, r *http.Request) {
+		fn := func(rsp http.ResponseWriter, req *http.Request) {
 
-			log.Printf("[%s] %s\n", r.Method, r.URL)
+			log.Printf("[%s] %s\n", req.Method, req.URL)
 
 			if *cors {
-				w.Header().Set("Access-Control-Allow-Origin", "*")
+				rsp.Header().Set("Access-Control-Allow-Origin", "*")
 			}
 
-			next.ServeHTTP(w, r)
+			/*
+			if req.URL.Path == "/foo" {
+
+				rsp.Write(body)
+			   	return 		      
+			}
+			*/
+			
+			next.ServeHTTP(rsp, req)
 		}
 
 		return http.HandlerFunc(fn)
