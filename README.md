@@ -26,7 +26,7 @@ Yes. Pass the `-cors` flag when starting up the server.
 
 Yes. Pass the `-sso` and `-sso-config PATH_TO_CONFIG_FILE` flags when starting up the server.
 
-Single sign-on functionality allows your static website to act as a delegated authentication (specifically OAuth2) application of a different service and to use that authorization as a kind of persistent login for your own application.
+Single sign-on functionality allows your static website to act as a delegated authentication (specifically OAuth2) consumer of a different service and to use that authorization as a kind of persistent login for your own application.
 
 When enabled three things happen:
 
