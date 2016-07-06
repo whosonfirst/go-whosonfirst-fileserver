@@ -10,6 +10,8 @@ There are many static file servers written in Go (and friends). This one is ours
 $> make build
 ```
 
+_See note below about installing [dependencies](#dependencies)._
+
 ### Running
 
 ```
@@ -19,6 +21,32 @@ $> bin/wof-fileserver -path /usr/local/mapzen/whosonfirst-data/data -port 9999
 ### CORS
 
 Yes. Pass the `-cors` flag when starting up the server.
+
+### Single sign-on (SSO)
+
+Yes. Pass the `-sso` and `-sso-config PATH_TO_CONFIG_FILE` flags when starting up the server.
+
+_Please write the long detailed version here._
+
+#### SSO config files
+
+_Example:_
+
+```
+[oauth]
+client_id=OAUTH2_CLIENT_ID
+client_secret=OAUTH2_CLIENT_SECRET
+auth_url=https://example.com/oauth2/request/
+token_url=https://example.com/oauth2/token/
+api_url=https://example.com/api/
+scopes=write
+
+[www]
+cookie_name=sso
+cookie_secret=SSO_COOKIE_SECRET
+```
+
+SSO config files are standard `ini` style config files.
 
 ### TLS
 
@@ -58,6 +86,22 @@ $> curl -v http://localhost:9999/858/723/15/85872315.geojson > /dev/null
 ## Does it do anything else? Tricks? Things you could talk about at a cocktail party?
 
 No.
+
+## Dependencies
+
+### Vendoring
+
+Vendoring has been disabled for the time being because when trying to fetch some vendored dependencies goes pear-shape with errors like this:
+
+```
+make deps
+# cd /Users/local/mapzen/mapzen-slippy-map/www-server/vendor/src/github.com/whosonfirst/go-httpony; git submodule update --init --recursive
+fatal: no submodule mapping found in .gitmodules for path 'vendor/src/golang.org/x/net'
+package github.com/whosonfirst/go-httpony: exit status 128
+make: *** [deps] Error 1
+```
+
+I have no idea and would welcome suggestions. Also something something something about the way that the dependencies for `go-httpony` aren't pulled in automatically and need to be explicitly fetched in this package's [Makefile](Makefile).
 
 ## See also
 
