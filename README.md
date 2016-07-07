@@ -41,7 +41,7 @@ _If your web application already has URLs that map to these endpoints you will (
 On all the other HTML pages (the ones you've created for your web application) if a valid token cookie is found then it will be inserted in to page's `body` element in a `data-api-access-token` attribute. Additionally, a `data-api-endpoint` attribute (as defined in the SSO config) will be added as well as a signout "crumb". For example:
 
 ```
-<body class="" data-api-access-token="927f384c059af236a7861b87c3759ce5" data-api-endpoint="https://example.com/api/" data-crumb-signout="1467922317-42d064ad80-☃">
+<body data-api-access-token="927f384c059af236a7861b87c3759ce5" data-api-endpoint="https://example.com/api/" data-crumb-signout="1467922317-42d064ad80-☃">
 ```
 
 It is left up your web application to determine what to _do_ with these new endpoints and functionality. This includes embedding or rendering links to the `/signin` and `/signout` endpoints.
