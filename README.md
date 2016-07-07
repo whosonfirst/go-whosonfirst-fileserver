@@ -28,17 +28,21 @@ Yes. Pass the `-sso` and `-sso-config PATH_TO_CONFIG_FILE` flags when starting u
 
 Single sign-on functionality allows your static website to act as a delegated authentication (specifically OAuth2) consumer of a different service and to use that authorization as a kind of persistent login for your own application.
 
-When enabled three things happen:
+When enabled a few things will happen. The first is that your web application will "grow" three new endpoints. They are:
 
-1. Your website will "grow" a `/signin/` endpoint. When visited a user will be sent to the SSO provider's OAuth2 authenticate endpoint to confirm that they want to allow your website to perform actions on their behalf.
-2. Your website will "grow" a `/auth/` endpoint. If a user approves your request to perform actions on their behalf they will be sent back to this endpoint and your website will complete the process to retrieve a persistent authentication token binding your website to the current user. That user's access token will be stored, encrypted, in a browser cookie whose expiration date will match the expiration date of the token itself.
-3. If a valid token cookie is found then, on all other HTML pages, it will be inserted in to page's `body` element in a `data-api-access-token` attribute. Additionally, a `data-api-endpoint` attribute (as defined in the SSO config) will be added.
+`/signin` When visited a user will be sent to the SSO provider's OAuth2 authenticate endpoint to confirm that they want to allow your website to perform actions on their behalf.
 
-There are some important caveats as of this writing:
+`/auth` If a user approves your request to perform actions on their behalf they will be sent back to this endpoint and your website will complete the process to retrieve a persistent authentication token binding your website to the current user. That user's access token will be stored, encrypted, in a browser cookie whose expiration date will match the expiration date of the token itself.
 
-* It is left up your web application to determine what to _do_ with these new endpoint and functionality. This includes embedding or rendering links to the `/signin` endpoint.
-* There is currently no way to overwrite, or manually set, the expiration date for token cookies. This is _not_ a feature and will be addressed soon.
-* There is currently no `/signout` endpoint through which a user may terminate their session and delete their token cookie. Again, this will be addressed soon.
+`/signout` _TBW_
+
+On all the other HTML pages (the ones you've created for your web application) if a valid token cookie is found then it will be inserted in to page's `body` element in a `data-api-access-token` attribute. Additionally, a `data-api-endpoint` attribute (as defined in the SSO config) will be added as well as a signout "crumb".
+
+```
+<body class="" data-api-access-token="927f384c059af236a7861b87c3759ce5" data-api-endpoint="https://example.com/api/" data-crumb-signout="1467922317-42d064ad80-☃">
+```
+
+It is left up your web application to determine what to _do_ with these new endpoints and functionality. This includes embedding or rendering links to the `/signin` endpoint.
 
 The details of registering your web application, as an OAuth2 consumer, with any given third-party are outside the scope of this document. At a minimum if you are using `wof-fileserver` to run a web application locally you should make sure that the third-party service supports redirecting users to `http://localhost`
 
@@ -58,6 +62,9 @@ scopes=write
 [www]
 cookie_name=sso
 cookie_secret=SSO_COOKIE_SECRET
+cookie_timeout=3600
+crumb_secret=CRUMB_SECRET
+crumb_timeout=3600
 ```
 
 SSO config files are standard `ini` style config files.
