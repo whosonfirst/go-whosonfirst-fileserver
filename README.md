@@ -34,15 +34,17 @@ When enabled a few things will happen. The first is that your web application wi
 
 `/auth` If a user approves your request to perform actions on their behalf they will be sent back to this endpoint and your website will complete the process to retrieve a persistent authentication token binding your website to the current user. That user's access token will be stored, encrypted, in a browser cookie whose expiration date will match the expiration date of the token itself.
 
-`/signout` _TBW_
+`/signout` Your application can use this endpoint to "log out" a user which means that their token cookie will be removed. You will need to include a valid `crumb` parameter with the request in order for this operation to succeed. Crumbs are injected as a `data-crumb-signout` attribute in the `body` element of your application's web pages. How those values are appended to a signout URL is left for individual applications to define.
 
-On all the other HTML pages (the ones you've created for your web application) if a valid token cookie is found then it will be inserted in to page's `body` element in a `data-api-access-token` attribute. Additionally, a `data-api-endpoint` attribute (as defined in the SSO config) will be added as well as a signout "crumb".
+_If your web application already has URLs that map to these endpoints you will (unfortunately) need to adjust your web application accordingly. It is not currently possible to change the SSO endpoints._
+
+On all the other HTML pages (the ones you've created for your web application) if a valid token cookie is found then it will be inserted in to page's `body` element in a `data-api-access-token` attribute. Additionally, a `data-api-endpoint` attribute (as defined in the SSO config) will be added as well as a signout "crumb". For example:
 
 ```
 <body class="" data-api-access-token="927f384c059af236a7861b87c3759ce5" data-api-endpoint="https://example.com/api/" data-crumb-signout="1467922317-42d064ad80-☃">
 ```
 
-It is left up your web application to determine what to _do_ with these new endpoints and functionality. This includes embedding or rendering links to the `/signin` endpoint.
+It is left up your web application to determine what to _do_ with these new endpoints and functionality. This includes embedding or rendering links to the `/signin` and `/signout` endpoints.
 
 The details of registering your web application, as an OAuth2 consumer, with any given third-party are outside the scope of this document. At a minimum if you are using `wof-fileserver` to run a web application locally you should make sure that the third-party service supports redirecting users to `http://localhost`
 
@@ -67,7 +69,9 @@ crumb_secret=CRUMB_SECRET
 crumb_timeout=3600
 ```
 
-SSO config files are standard `ini` style config files.
+SSO config files are standard `ini` style config files. The `cookie_timeout` and `crumb_timeout` values are defined in seconds after which they are considered "expired". 
+
+A `cookie_timeout` value of 0 or less will cause the SSO handler to use the expiry date of the access token (returned by the third-party service) instead. You should use this feature carefully. A `crumb_timeout` value of 0 or less will prevent the signout crumb from expiring. That's your business.
 
 ### TLS
 
