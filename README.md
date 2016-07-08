@@ -153,7 +153,7 @@ $> curl -v http://localhost:9999/858/723/15/85872315.geojson > /dev/null
 
 ## Does it do anything else? Tricks? Things you could talk about at a cocktail party?
 
-No. Well, maybe the [single sign-on stuff](#single-sign-on-sso) but you should consider that to be the exception to the rule.
+No. Well, maybe the [single sign-on stuff](https://github.com/whosonfirst/go-whosonfirst-fileserver/blob/master/README.md#single-sign-on-sso) but you should consider that to be the exception to the rule.
 
 ## Dependencies
 
