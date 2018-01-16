@@ -13,10 +13,7 @@ rmdeps:
 build:	rmdeps deps bin
 
 deps:
-	@GOPATH=$(GOPATH) go get -u "github.com/vaughan0/go-ini"
-	@GOPATH=$(GOPATH) go get -u "golang.org/x/net/html"
-	@GOPATH=$(GOPATH) go get -u "golang.org/x/oauth2"
-	@GOPATH=$(GOPATH) go get -u "github.com/whosonfirst/go-httpony"
+	# @GOPATH=$(GOPATH) go get -u "github.com/vaughan0/go-ini"
 
 bin:	self fmt
 	@GOPATH=$(GOPATH) go build -o bin/wof-fileserver cmd/wof-fileserver.go
