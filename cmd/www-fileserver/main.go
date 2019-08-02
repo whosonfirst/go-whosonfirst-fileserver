@@ -19,9 +19,9 @@ func main() {
 	var path = flag.String("path", "./", "Path served as document root.")
 	var enable_gzip = flag.Bool("gzip", false, "gzip response bodies")
 	var enable_cors = flag.Bool("cors", false, "Enable CORS header on responses")
-	var cors_origins = flag.String("cors-allowed-origins", "*", "...")
+	var cors_origins = flag.String("cors-allowed-origins", "*", "Comma-separated list of CORS allowed origins")
 	
-	var tls = flag.Bool("tls", false, "...")
+	// var tls = flag.Bool("tls", false, "...")
 
 	flag.Parse()
 
@@ -41,7 +41,7 @@ func main() {
 	if *enable_cors {
 
 		c := cors.New(cors.Options{
-			AllowedOrigins: strings.Split(*cors_origins, " "),
+			AllowedOrigins: strings.Split(*cors_origins, ","),
 		})
 		
 		fs_handler = c.Handler(fs_handler)
@@ -53,6 +53,7 @@ func main() {
 	address := fmt.Sprintf("%s:%d", *host, *port)
 	log.Printf("listening on %s\n", address)
 
+	/*
 	if *tls {
 
 		// see also: https://github.com/Shyp/generate-tls-cert
@@ -65,7 +66,10 @@ func main() {
 	} else {
 		err = http.ListenAndServe(address, mux)
 	}
-
+	*/
+	
+	err = http.ListenAndServe(address, mux)
+	
 	if err != nil {
 		log.Fatal(err)
 	}
