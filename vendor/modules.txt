@@ -1,0 +1,4 @@
+# github.com/NYTimes/gziphandler v1.1.1
+github.com/NYTimes/gziphandler
+# github.com/rs/cors v1.6.0
+github.com/rs/cors
