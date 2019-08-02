@@ -33,6 +33,10 @@ Usage of ./bin/www-fileserver:
     	Port to listen on (default 8080)
 ```
 
+## To do
+
+* Support for TLS certificates
+
 ## See also
 
 * https://github.com/NYTimes/gziphandler
