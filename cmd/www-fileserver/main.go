@@ -16,7 +16,7 @@ import (
 
 func main() {
 
-	var host = flag.String("host", "localhost", "Hostname to listen on")
+	var host = flag.String("host", "127.0.0.1", "Hostname to listen on")
 	var port = flag.Int("port", 8080, "Port to listen on")
 	var path = flag.String("path", "./", "Path served as document root.")
 	var enable_gzip = flag.Bool("gzip", false, "gzip response bodies")
@@ -59,7 +59,8 @@ func main() {
 		// https://github.com/FiloSottile/mkcert
 		// https://blog.filippo.io/mkcert-valid-https-certificates-for-localhost/
 		// https://github.com/golang/go/issues/20640
-
+		// https://gist.github.com/6174/9ff5063a43f0edd82c8186e417aae1dc
+		
 		/*
 
 		> make tools ; sudo ./bin/www-fileserver -tls -host aa.local -path ./
