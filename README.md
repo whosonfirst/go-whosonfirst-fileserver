@@ -2,6 +2,10 @@
 
 There are many static file servers written in Go (and friends). This one is ours.
 
+## Important
+
+This package is no longer being maintained. You should use [aaronland/go-http-fileserver](https://github.com/aaronland/go-http-fileserver) or something equivalent instead.
+
 ## Install
 
 You will need to have both `Go` (specifically [version 1.12](https://golang.org/dl/) or higher because we're using [Go modules](https://github.com/golang/go/wiki/Modules)) and the `make` programs installed on your computer. Assuming you do just type:
